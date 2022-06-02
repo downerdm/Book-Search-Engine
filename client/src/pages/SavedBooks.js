@@ -1,20 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
 import { REMOVE_BOOK } from '../utils/mutations';
 import { removeBookId } from '../utils/localStorage';
+import Auth from "../utils/auth";
 
 const SavedBooks = () => {
-  const [removeBook, { mutationData, mutationError }] = useMutation(REMOVE_BOOK);
-  const { loading, error, data } = useQuery(GET_ME);
-  const user = data?.me || data?.user || {};
-  const [userState, setUserState] = useState({...user});
-  const userData = userState.savedBooks ? userState : user;
+  const profileData = Auth.getProfile();
+  const userId = profileData.data._id;
+  console.log(userId);
 
-  async function handleDeleteBook(bookId) {
+  const userData = useQuery(GET_ME, {variables: {userId: userId}});
+  console.log(userData);
+  const data = userData.data || [];
+  const spread = {...data.user};
+
+  console.log(spread.username);
+  const [removeBook, {error}] = useMutation(REMOVE_BOOK);
+
+  const handleDeleteBook =async (bookId) => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+    
     try {
-      const response = await removeBook({ variables: { bookId: bookId } });
+      const response = await removeBook({ variables: { userId: userId, bookId: bookId } });
   
     setUserState({ ...response.data.removeBook }); // update state
     removeBookId(bookId);
@@ -23,7 +36,7 @@ const SavedBooks = () => {
   }
 
   // if data isn't here yet, say so
-  if (loading) {
+  if (!spread.username) {
     return <h2>LOADING...</h2>;
     }
   }
