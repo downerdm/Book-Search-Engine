@@ -66,5 +66,5 @@ THEN I am logged out of the site and presented with a menu with the options Sear
 
 ## GitHub Repository & Deployed Application (Heroku)
 
-GitHub Repository: <https://github.com/downerdm/Book-Search-Engine>
-Deployed Application: <https://secret-shelf-71482.herokuapp.com/>
+* GitHub Repository: <https://github.com/downerdm/Book-Search-Engine>
+* Deployed Application: <https://secret-shelf-71482.herokuapp.com/>
