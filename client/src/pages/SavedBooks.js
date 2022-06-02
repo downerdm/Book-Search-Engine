@@ -28,10 +28,9 @@ const SavedBooks = () => {
     
     try {
       const response = await removeBook({ variables: { userId: userId, bookId: bookId } });
-  
-    setUserState({ ...response.data.removeBook }); // update state
-    removeBookId(bookId);
-  } catch (err) {
+        console.log(response);
+        removeBookId(bookId);
+    } catch (err) {
     console.error(err);
   }
 
