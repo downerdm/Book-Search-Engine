@@ -8,7 +8,7 @@ const SignupForm = () => {
   // set initial form state
   const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
   
-  const [addUser, { error, data }] = useMutation(ADD_USER);
+  const [addUser, { error }] = useMutation(ADD_USER);
   
   // set state for form validation
   const [validated] = useState(false);
@@ -28,16 +28,13 @@ const SignupForm = () => {
      try {
       console.log(userFormData.username)
       const {data} = await addUser(
-        {variables: { 
-          username: userFormData.username,
-          email: userFormData.email,
-          password: userFormData.password,
-        }
+        {variables: { ...userFormData }
     });
     console.log(data)
     
       Auth.login(data.addUser.token);
     } catch (error) {
+      console.log(error);
       console.error(error);
       setShowAlert(true);
     }
