@@ -1,5 +1,5 @@
 {
-  "name": "book-search-engine",
+  "name": "secret-shelf-71482",
   "version": "1.0.0",
   "description": "",
   "main": "server/server.js",
@@ -14,11 +14,5 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.1.0"
-  },
-  "dependencies": {
-    "ansi-regex": "^6.0.1",
-    "ansi-styles": "^6.1.0",
-    "apollo": "^2.34.0",
-    "react": "^18.1.0"
   }
 }
